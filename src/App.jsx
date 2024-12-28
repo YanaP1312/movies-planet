@@ -15,9 +15,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:id/:title" element={<MovieDetailsPage />}>
-          <Route to="cast" element={<MovieCast />} />
-          <Route to="reviews" element={<MovieReviews />} />
+        <Route path="/movies/:id" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
