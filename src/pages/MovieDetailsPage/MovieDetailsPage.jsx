@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchMoviesDetails } from "../../tmdb-api";
+import BackLink from "../../components/BackLink/BackLink";
 
 export default function MovieDetailsPage() {
   const { id } = useParams();
   const [details, setDetails] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchDetailsOnMoviePage = async () => {
@@ -25,8 +27,11 @@ export default function MovieDetailsPage() {
     fetchDetailsOnMoviePage();
   }, [id]);
 
+  const backLinkHref = location.state ?? "/movies";
+
   return (
     <main>
+      <BackLink to={backLinkHref} />
       {loading && <p>Loading...</p>}
       {error && <p>Error, try again, please.</p>}
       <div>
@@ -37,6 +42,11 @@ export default function MovieDetailsPage() {
         <h1>{details.title}</h1>
 
         <ul>
+          <li>
+            <h2>Release date</h2>
+            <p>{details.release_date}</p>
+          </li>
+          <li></li>
           <li>
             <h2>User Score</h2>
             <p>{details.vote_average?.toFixed(1)}</p>
