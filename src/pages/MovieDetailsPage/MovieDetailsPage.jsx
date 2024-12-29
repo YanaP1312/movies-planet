@@ -27,11 +27,9 @@ export default function MovieDetailsPage() {
     fetchDetailsOnMoviePage();
   }, [id]);
 
-  const backLinkHref = location.state ?? "/movies";
-
   return (
     <main>
-      <BackLink to={backLinkHref} />
+      <BackLink />
       {loading && <p>Loading...</p>}
       {error && <p>Error, try again, please.</p>}
       <div>
