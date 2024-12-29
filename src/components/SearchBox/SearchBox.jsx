@@ -3,9 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function SearchBox({ onSearch, value, onChange }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const query = form.elements.query.value;
-    if (query.trim() === "") {
+    if (value.trim() === "") {
       toast("Please enter your query", {
         position: "top-right",
         style: {
@@ -18,8 +16,7 @@ export default function SearchBox({ onSearch, value, onChange }) {
       });
       return;
     }
-    onSearch(query);
-    form.reset();
+    onSearch(value);
   };
 
   return (

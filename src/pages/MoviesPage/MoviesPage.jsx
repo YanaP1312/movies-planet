@@ -6,11 +6,7 @@ import { fetchSearchMovies } from "../../tmdb-api";
 
 export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryName = searchParams.get("query") ?? "";
-  const updateQueryString = (query) => {
-    const nextParams = query !== "" ? { query } : {};
-    setSearchParams(nextParams);
-  };
+  const query = searchParams.get("query") ?? "";
 
   const [currentQuery, setCurrentQuery] = useState("");
   const [movies, setMovies] = useState([]);
@@ -18,43 +14,44 @@ export default function MoviesPage() {
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
 
-  const handleSearch = async (query) => {
-    setCurrentQuery(query);
+  const fetchMoviesOnMoviePage = async (query) => {
     setMovies([]);
     setNoResults(false);
     setError(false);
+    setLoading(true);
+
+    try {
+      const data = await fetchSearchMovies(query);
+      if (data.results.length === 0) {
+        setNoResults(true);
+        return;
+      }
+      setMovies(data.results);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = (query) => {
+    setSearchParams({ query });
+    fetchMoviesOnMoviePage(query);
+    setCurrentQuery("");
   };
 
   useEffect(() => {
-    if (!currentQuery) return;
-
-    const fetchMoviesOnMoviePage = async () => {
-      try {
-        setError(false);
-        setLoading(true);
-        setNoResults(false);
-        const data = await fetchSearchMovies(currentQuery);
-        if (data.results.length === 0) {
-          setNoResults(true);
-          return;
-        }
-        setMovies(data.results);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMoviesOnMoviePage();
-  }, [currentQuery]);
+    if (query) {
+      fetchMoviesOnMoviePage(query);
+    }
+  }, [query]);
 
   return (
     <div>
       <SearchBox
         onSearch={handleSearch}
-        value={queryName}
-        onChange={updateQueryString}
+        value={currentQuery}
+        onChange={setCurrentQuery}
       />
       {noResults && <p>No movie found matching your request</p>}
       {loading && <p>Loading...</p>}
