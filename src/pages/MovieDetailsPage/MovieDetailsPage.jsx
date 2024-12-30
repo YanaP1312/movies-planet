@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchMoviesDetails } from "../../tmdb-api";
 import BackLink from "../../components/BackLink/BackLink";
@@ -9,6 +9,7 @@ export default function MovieDetailsPage() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const backLinkHref = useRef(location.state?.from || "/movies");
 
   useEffect(() => {
     const fetchDetailsOnMoviePage = async () => {
@@ -27,9 +28,12 @@ export default function MovieDetailsPage() {
     fetchDetailsOnMoviePage();
   }, [id]);
 
+  console.log("backLinkHref:", backLinkHref.current);
+  console.log("location.state:", location.state);
+
   return (
     <main>
-      <BackLink />
+      <BackLink to={backLinkHref.current} />
       {loading && <p>Loading...</p>}
       {error && <p>Error, try again, please.</p>}
       <div>
@@ -76,12 +80,24 @@ export default function MovieDetailsPage() {
         <p>Additional information</p>
         <ul>
           <li>
-            <Link to="cast" state={{ cast: details.credits?.cast }}>
+            <Link
+              to="cast"
+              state={{
+                from: backLinkHref.current,
+                cast: details.credits?.cast,
+              }}
+            >
               Cast
             </Link>
           </li>
           <li>
-            <Link to="reviews" state={{ reviews: details.reviews?.results }}>
+            <Link
+              to="reviews"
+              state={{
+                from: backLinkHref.current,
+                reviews: details.reviews?.results,
+              }}
+            >
               Reviews
             </Link>
           </li>
