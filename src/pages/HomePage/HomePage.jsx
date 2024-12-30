@@ -9,11 +9,18 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchMoviesOnHomePage = async () => {
+      const cachedMovies = sessionStorage.getItem("trendingMovies");
+      if (cachedMovies) {
+        setMovies(JSON.parse(cachedMovies));
+        return;
+      }
+
       try {
         setLoading(true);
         setError(false);
         const data = await fetchTrendingMovies();
         setMovies(data.results);
+        sessionStorage.setItem("trendingMovies", JSON.stringify(data.results));
       } catch (error) {
         setError(true);
       } finally {

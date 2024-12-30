@@ -15,7 +15,13 @@ export default function MoviesPage() {
   const [noResults, setNoResults] = useState(false);
 
   const fetchMoviesOnMoviePage = async (query) => {
-    setMovies([]);
+    const cachedMovies = sessionStorage.getItem("searchMovies");
+
+    if (cachedMovies) {
+      setMovies(JSON.parse(cachedMovies));
+      return;
+    }
+
     setNoResults(false);
     setError(false);
     setLoading(true);
@@ -27,6 +33,7 @@ export default function MoviesPage() {
         return;
       }
       setMovies(data.results);
+      sessionStorage.setItem("searchMovies", JSON.stringify(data.results));
     } catch (error) {
       setError(true);
     } finally {
