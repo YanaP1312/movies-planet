@@ -11,14 +11,16 @@ const axiosInstance = axios.create({
   },
 });
 
-export async function fetchTrendingMovies() {
-  const response = await axiosInstance.get("/trending/movie/day");
+export async function fetchTrendingMovies(page) {
+  const response = await axiosInstance.get("/trending/movie/day", {
+    params: { page: page },
+  });
   return response.data;
 }
 
-export async function fetchSearchMovies(userQuery) {
+export async function fetchSearchMovies(userQuery, page) {
   const response = await axiosInstance.get("/search/movie", {
-    params: { query: userQuery },
+    params: { query: userQuery, page: page },
   });
   return response.data;
 }

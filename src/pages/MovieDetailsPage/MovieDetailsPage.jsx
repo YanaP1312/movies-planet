@@ -1,7 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchMoviesDetails } from "../../tmdb-api";
 import BackLink from "../../components/BackLink/BackLink";
+import Loader from "../../components/Loader/Loader";
 
 export default function MovieDetailsPage() {
   const { id } = useParams();
@@ -28,18 +29,23 @@ export default function MovieDetailsPage() {
     fetchDetailsOnMoviePage();
   }, [id]);
 
-  console.log("backLinkHref:", backLinkHref.current);
-  console.log("location.state:", location.state);
+  const defaultImg =
+    "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
 
   return (
     <main>
       <BackLink to={backLinkHref.current} />
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p>Error, try again, please.</p>}
       <div>
         <img
-          src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
-          alt={details.title}
+          src={
+            details.poster_path
+              ? `https://image.tmdb.org/t/p/w500${details.poster_path}`
+              : defaultImg
+          }
+          alt={`poster ${details.title}`}
+          width={250}
         />
         <h1>{details.title}</h1>
 
@@ -102,7 +108,9 @@ export default function MovieDetailsPage() {
             </Link>
           </li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </div>
     </main>
   );
