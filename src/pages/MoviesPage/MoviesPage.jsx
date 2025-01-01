@@ -24,10 +24,12 @@ export default function MoviesPage() {
 
     const savedMovies = sessionStorage.getItem(`searchMovies-${query}`);
     const savedPage = sessionStorage.getItem(`searchPage-${query}`);
+    const savedTotalPages = sessionStorage.getItem(`totalPages-${query}`);
 
-    if (savedMovies && savedPage) {
+    if (savedMovies && savedPage && savedTotalPages) {
       setMovies(JSON.parse(savedMovies));
       setPage(Number(savedPage));
+      setTotalPages(Number(savedTotalPages));
     } else {
       fetchMoviesOnMoviePage(1);
     }
@@ -38,7 +40,6 @@ export default function MoviesPage() {
     setLoading(true);
 
     try {
-      // setMovies([]);
       const data = await fetchSearchMovies(query, page);
       if (data.results.length === 0 && page === 1) {
         setNoResults(true);
@@ -59,6 +60,10 @@ export default function MoviesPage() {
         );
 
         sessionStorage.setItem(`searchPage-${query}`, page.toString());
+        sessionStorage.setItem(
+          `totalPages-${query}`,
+          data.total_pages.toString()
+        );
         return uniqueMovies;
       });
 
