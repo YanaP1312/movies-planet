@@ -1,9 +1,20 @@
 .nav {
+  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 25px;
 }
 
 .link {
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.link:hover {
+  color: rgb(60, 138, 7);
 }
 
 .active {
-  color: orange;
+  color: rgb(142, 235, 79);
 }

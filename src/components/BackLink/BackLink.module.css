@@ -1,0 +1,9 @@
+.link {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: rgb(134, 222, 75);
+}

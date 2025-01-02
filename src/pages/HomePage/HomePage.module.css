@@ -1,0 +1,14 @@
+.mainSection {
+  padding: 0 20px;
+}
+.title {
+  margin-bottom: 15px;
+  font-size: 44px;
+  font-weight: bold;
+  color: rgb(142, 235, 79);
+}
+.errorMsg {
+  font-style: italic;
+  font-size: 18px;
+  color: rgb(142, 235, 79);
+}

@@ -4,6 +4,7 @@ import { fetchTrendingMovies } from "../../tmdb-api";
 import { useEffect, useState, useRef } from "react";
 import ThanksForTMDB from "../../components/ThanksToTMDB/ThanksForTMDB";
 import Loader from "../../components/Loader/Loader";
+import s from "./HomePage.module.css";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -67,10 +68,10 @@ export default function HomePage() {
 
   return (
     <div>
-      <main>
-        <h1>Trending today</h1>
+      <main className={s.mainSection}>
+        <h1 className={s.title}>Trending today</h1>
         {loading && <Loader />}
-        {error && <p>Error, try again, please.</p>}
+        {error && <p className="errorMsg">Error, try again, please.</p>}
         <MoviesList movies={movies} />
         {movies.length > 0 && page < totalPages && (
           <LoadMore onClick={loadMore} />

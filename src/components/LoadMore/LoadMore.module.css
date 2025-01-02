@@ -1,0 +1,32 @@
+.btn {
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px 25px;
+  background-color: rgb(134, 222, 75);
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: rgb(60, 138, 7);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

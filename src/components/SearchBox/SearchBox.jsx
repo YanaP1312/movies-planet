@@ -1,4 +1,5 @@
 import toast, { Toaster } from "react-hot-toast";
+import s from "./SearchBox.module.css";
 
 export default function SearchBox({ onSearch, value, onChange }) {
   const handleSubmit = (e) => {
@@ -8,11 +9,11 @@ export default function SearchBox({ onSearch, value, onChange }) {
         position: "top-right",
         style: {
           background: "transparent",
-          color: "aliceblue",
+          color: "rgb(142, 235, 79)",
           fontStyle: "italic",
           boxShadow: "none",
         },
-        icon: "⚠️",
+        icon: "⚡",
       });
       return;
     }
@@ -21,16 +22,20 @@ export default function SearchBox({ onSearch, value, onChange }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={s.form}>
         <input
+          className={s.input}
           type="text"
           autoFocus
+          autocomplete="off"
           name="query"
           placeholder="Search movie"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className={s.btn}>
+          Search
+        </button>
       </form>
       <Toaster />
     </div>
