@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import MoviesList from "../../components/MoviesList/MoviesList";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { fetchSearchMovies } from "../../tmdb-api";
 import LoadMore from "../../components/LoadMore/LoadMore";
 import Loader from "../../components/Loader/Loader";
@@ -18,7 +18,6 @@ export default function MoviesPage() {
   const [noResults, setNoResults] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  // const cacheRef = useRef({});
 
   useEffect(() => {
     if (!query) return;

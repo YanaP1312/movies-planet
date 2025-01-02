@@ -1,0 +1,12 @@
+.home {
+  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 25px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.home:hover {
+  color: rgb(60, 138, 7);
+}

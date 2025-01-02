@@ -18,7 +18,7 @@ export default function MovieDetailsPage() {
       try {
         setError(false);
         setLoading(true);
-        const data = await fetchMoviesDetails(id, "credits,reviews");
+        const data = await fetchMoviesDetails(id, "credits,reviews,videos");
         setDetails(data);
       } catch (error) {
         setError(true);
@@ -49,10 +49,10 @@ export default function MovieDetailsPage() {
             width={360}
           />
         </div>
-        <div className={s.movieInfo}>
+        <div>
           <h1 className={s.title}>{details.title}</h1>
 
-          <ul className={s.list}>
+          <ul>
             <li className={s.listItem}>
               <h2 className={s.topic}>Release date</h2>
               <p className={s.dscr}>{details.release_date}</p>
@@ -88,7 +88,7 @@ export default function MovieDetailsPage() {
         </div>
       </div>
 
-      <div className={s.moreInfo}>
+      <div>
         <h2 className={s.topicAdd}>Additional information</h2>
         <ul className={s.moreInfoList}>
           <li>
@@ -113,6 +113,18 @@ export default function MovieDetailsPage() {
               }}
             >
               Reviews
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={s.more}
+              to="videos"
+              state={{
+                from: backLinkHref.current,
+                videos: details.videos?.results,
+              }}
+            >
+              Video
             </Link>
           </li>
         </ul>

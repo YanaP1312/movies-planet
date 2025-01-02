@@ -1,0 +1,9 @@
+.errorMsg {
+  font-style: italic;
+  font-size: 18px;
+  color: rgb(142, 235, 79);
+}
+
+.container {
+  margin-top: 15px;
+}

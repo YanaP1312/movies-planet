@@ -19,16 +19,10 @@
   max-height: 580px;
 }
 
-.movieInfo {
-}
-
 .title {
   color: rgb(142, 235, 79);
   margin: 0 auto;
   text-align: center;
-}
-
-.list {
 }
 
 .listItem {
@@ -44,10 +38,9 @@
 }
 .topicAdd {
   color: rgb(142, 235, 79);
+  margin-bottom: 15px;
 }
 
-.moreInfo {
-}
 .moreInfoList {
   display: flex;
   gap: 24px;
@@ -55,7 +48,6 @@
 .more {
   font-weight: bold;
   font-size: 20px;
-  margin-left: 50px;
 }
 
 .more:hover,
