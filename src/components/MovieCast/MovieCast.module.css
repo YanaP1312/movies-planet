@@ -14,17 +14,14 @@
 
 .castItem {
   width: calc(100% - 96) / 5;
-  max-width: 320px;
-}
-
-.castItem img {
-  max-width: 320px;
 }
 
 .topic {
   color: rgb(142, 235, 79);
+  max-width: 280px;
 }
 
 .dscr {
   font-style: italic;
+  max-width: 280px;
 }
