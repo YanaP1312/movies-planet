@@ -5,12 +5,17 @@
 .container {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
 }
 .logo {
-  width: 60px;
-  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .text {
-  max-width: 480px;
+  max-width: 320px;
+  font-style: italic;
+  font-size: 12px;
 }

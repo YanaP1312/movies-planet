@@ -3,6 +3,7 @@ import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchMoviesDetails } from "../../tmdb-api";
 import BackLink from "../../components/BackLink/BackLink";
 import Loader from "../../components/Loader/Loader";
+import s from "./MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const { id } = useParams();
@@ -32,60 +33,67 @@ export default function MovieDetailsPage() {
   const defaultImg = "https://ranobehub.org/img/ranobe/posters/default.jpg";
 
   return (
-    <main>
+    <main className={s.main}>
       <BackLink to={backLinkHref.current} />
       {loading && <Loader />}
-      {error && <p>Error, try again, please.</p>}
-      <div>
-        <img
-          src={
-            details.poster_path
-              ? `https://image.tmdb.org/t/p/w500${details.poster_path}`
-              : defaultImg
-          }
-          alt={`poster ${details.title}`}
-          width={250}
-        />
-        <h1>{details.title}</h1>
+      {error && <p className={s.errorMsg}>Error, try again, please.</p>}
+      <div className={s.container}>
+        <div className={s.img}>
+          <img
+            src={
+              details.poster_path
+                ? `https://image.tmdb.org/t/p/w500${details.poster_path}`
+                : defaultImg
+            }
+            alt={`poster ${details.title}`}
+            width={360}
+          />
+        </div>
+        <div className={s.movieInfo}>
+          <h1 className={s.title}>{details.title}</h1>
 
-        <ul>
-          <li>
-            <h2>Release date</h2>
-            <p>{details.release_date}</p>
-          </li>
-          <li></li>
-          <li>
-            <h2>User Score</h2>
-            <p>{details.vote_average?.toFixed(1)}</p>
-          </li>
-          <li>
-            <h2>Overview</h2>
-            <p>{details.overview}</p>
-          </li>
-          <li>
-            <h2>Genres</h2>
-            <p>{details.genres?.map((genre) => genre.name).join(" ")}</p>
-          </li>
-          <li>
-            <h2>Original language</h2>
-            <p>{details.original_language}</p>
-          </li>
-          <li>
-            <h2>Production countries</h2>
-            <p>
-              {details.production_countries
-                ?.map((country) => country.name)
-                .join(" ")}
-            </p>
-          </li>
-        </ul>
+          <ul className={s.list}>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>Release date</h2>
+              <p className={s.dscr}>{details.release_date}</p>
+            </li>
+            <li></li>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>User Score</h2>
+              <p className={s.dscr}>{details.vote_average?.toFixed(1)}</p>
+            </li>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>Overview</h2>
+              <p className={s.dscr}>{details.overview}</p>
+            </li>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>Genres</h2>
+              <p className={s.dscr}>
+                {details.genres?.map((genre) => genre.name).join(" ")}
+              </p>
+            </li>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>Original language</h2>
+              <p className={s.dscr}>{details.original_language}</p>
+            </li>
+            <li className={s.listItem}>
+              <h2 className={s.topic}>Production countries</h2>
+              <p className={s.dscr}>
+                {details.production_countries
+                  ?.map((country) => country.name)
+                  .join(" ")}
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <p>Additional information</p>
-        <ul>
+      <div className={s.moreInfo}>
+        <h2 className={s.topicAdd}>Additional information</h2>
+        <ul className={s.moreInfoList}>
           <li>
             <Link
+              className={s.more}
               to="cast"
               state={{
                 from: backLinkHref.current,
@@ -97,6 +105,7 @@ export default function MovieDetailsPage() {
           </li>
           <li>
             <Link
+              className={s.more}
               to="reviews"
               state={{
                 from: backLinkHref.current,

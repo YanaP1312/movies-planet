@@ -1,0 +1,30 @@
+.errorMsg {
+  font-style: italic;
+  font-size: 18px;
+  color: rgb(142, 235, 79);
+}
+
+.cast {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.castItem {
+  width: calc(100% - 96) / 5;
+  max-width: 320px;
+}
+
+.castItem img {
+  max-width: 320px;
+}
+
+.topic {
+  color: rgb(142, 235, 79);
+}
+
+.dscr {
+  font-style: italic;
+}

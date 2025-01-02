@@ -1,13 +1,18 @@
 .form {
   margin: 10px 20px 20px;
+  display: flex;
+  align-items: center;
 }
 
 .input {
   margin-right: 10px;
   border-radius: 5px;
+  height: 30px;
   padding: 5px 10px;
   border: 1px solid rgb(134, 222, 75);
   transition: background-color 0.2s ease;
+  font-size: 14px;
+  color: rgba(243, 232, 232, 0.87);
 }
 
 .input:hover,
@@ -17,14 +22,17 @@
 }
 
 .btn {
-  padding: 7px 15px;
-  background-color: rgb(134, 222, 75);
+  height: 30px;
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: rgb(110, 197, 52);
   border: none;
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .btn:hover,

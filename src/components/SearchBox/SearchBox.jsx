@@ -27,7 +27,7 @@ export default function SearchBox({ onSearch, value, onChange }) {
           className={s.input}
           type="text"
           autoFocus
-          autocomplete="off"
+          autoComplete="off"
           name="query"
           placeholder="Search movie"
           value={value}

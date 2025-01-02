@@ -1,0 +1,28 @@
+.errorMsg {
+  font-style: italic;
+  font-size: 18px;
+  color: rgb(142, 235, 79);
+}
+
+.revList {
+  margin-top: 15px;
+}
+
+.item {
+  margin-bottom: 20px;
+}
+.topic {
+  margin-bottom: 5px;
+  color: rgb(142, 235, 79);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dscr {
+  font-style: italic;
+}
+
+.text {
+  margin-top: 10px;
+}
