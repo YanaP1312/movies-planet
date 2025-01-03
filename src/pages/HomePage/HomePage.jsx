@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import ThanksForTMDB from "../../components/ThanksToTMDB/ThanksForTMDB";
 import Loader from "../../components/Loader/Loader";
 import s from "./HomePage.module.css";
+import Error from "../../components/Error/Error";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -68,10 +69,10 @@ export default function HomePage() {
 
   return (
     <div>
-      <main className={s.mainSection}>
+      <main className={s.container}>
         <h1 className={s.title}>Trending today</h1>
         {isLoading && <Loader />}
-        {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
+        {isError && <Error />}
         <MoviesList movies={movies} />
         {movies.length > 0 && page < totalPages && (
           <LoadMore onClick={loadMore} />

@@ -8,7 +8,7 @@ export default function Navigation() {
   };
 
   return (
-    <div className={s.nav}>
+    <div className={s.container}>
       <NavLink to="/" className={buildLinkClass}>
         Home
       </NavLink>

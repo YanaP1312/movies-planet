@@ -24,7 +24,7 @@ export default function MoviesList({ movies }) {
                         : defaultImg
                     }
                     alt={`poster ${movie.title}`}
-                    width={250}
+                    width={320}
                   />
                   <p className={s.movieVote}>
                     <HiOutlineStar fill="rgb(142, 235, 79)" />{" "}

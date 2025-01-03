@@ -1,9 +1,15 @@
-.errorMsg {
-  font-style: italic;
-  font-size: 18px;
-  color: rgb(142, 235, 79);
-}
-
 .container {
   margin-top: 15px;
+}
+
+.video {
+  width: 335px;
+  margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .video {
+    min-width: 560px;
+    min-height: 315px;
+  }
 }

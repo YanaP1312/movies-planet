@@ -4,6 +4,8 @@ import { fetchMoviesDetails } from "../../tmdb-api";
 import BackLink from "../../components/BackLink/BackLink";
 import Loader from "../../components/Loader/Loader";
 import s from "./MovieDetailsPage.module.css";
+import Error from "../../components/Error/Error";
+import { HiOutlineStar } from "react-icons/hi2";
 
 export default function MovieDetailsPage() {
   const { id } = useParams();
@@ -33,11 +35,11 @@ export default function MovieDetailsPage() {
   const defaultImg = "https://ranobehub.org/img/ranobe/posters/default.jpg";
 
   return (
-    <main className={s.main}>
+    <main className={s.container}>
       <BackLink to={backLinkHref.current} />
       {isLoading && <Loader />}
-      {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
-      <div className={s.container}>
+      {isError && <Error />}
+      <div className={s.wrap}>
         <div className={s.img}>
           <img
             src={
@@ -48,6 +50,10 @@ export default function MovieDetailsPage() {
             alt={`poster ${details.title}`}
             width={360}
           />
+          <p className={s.movieVote}>
+            <HiOutlineStar fill="rgb(142, 235, 79)" />{" "}
+            {details.vote_average?.toFixed(1)}
+          </p>
         </div>
         <div>
           <h1 className={s.title}>{details.title}</h1>
@@ -56,11 +62,6 @@ export default function MovieDetailsPage() {
             <li className={s.listItem}>
               <h2 className={s.topic}>Release date</h2>
               <p className={s.dscr}>{details.release_date}</p>
-            </li>
-            <li></li>
-            <li className={s.listItem}>
-              <h2 className={s.topic}>User Score</h2>
-              <p className={s.dscr}>{details.vote_average?.toFixed(1)}</p>
             </li>
             <li className={s.listItem}>
               <h2 className={s.topic}>Overview</h2>

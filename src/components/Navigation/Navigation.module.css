@@ -1,7 +1,7 @@
-.nav {
-  margin-bottom: 15px;
-  padding-top: 15px;
-  padding-left: 25px;
+.container {
+  width: 375px;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .link {
@@ -17,4 +17,18 @@
 
 .active {
   color: rgb(142, 235, 79);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 768px;
+    padding: 32px;
+  }
+}
+
+@media screen and (min-width: 1168px) {
+  .container {
+    width: 1168px;
+    padding: 15px 15px;
+  }
 }

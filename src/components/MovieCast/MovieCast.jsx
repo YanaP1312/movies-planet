@@ -3,6 +3,8 @@ import s from "./MovieCast.module.css";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import { fetchMoviesDetails } from "../../tmdb-api";
+import Error from "../Error/Error";
+import EmptyArr from "../EmptyArr/EmptyArr";
 
 export default function MovieCast() {
   const { id } = useParams();
@@ -32,7 +34,7 @@ export default function MovieCast() {
   return (
     <ul className={s.cast}>
       {isLoading && <Loader />}
-      {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
+      {isError && <Error />}
       {cast.length > 0 ? (
         cast.map((item) => (
           <li key={item.id} className={s.castItem}>
@@ -52,7 +54,7 @@ export default function MovieCast() {
           </li>
         ))
       ) : (
-        <p className={s.errorMsg}>Sorry, no video yet</p>
+        <EmptyArr children="cast info" />
       )}
     </ul>
   );

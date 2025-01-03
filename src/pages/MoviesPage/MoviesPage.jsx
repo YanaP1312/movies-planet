@@ -6,6 +6,8 @@ import { fetchSearchMovies } from "../../tmdb-api";
 import LoadMore from "../../components/LoadMore/LoadMore";
 import Loader from "../../components/Loader/Loader";
 import s from "./MoviesPage.module.css";
+import EmptyArr from "../../components/EmptyArr/EmptyArr";
+import Error from "../../components/Error/Error";
 
 export default function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -92,19 +94,15 @@ export default function MoviesPage() {
   };
 
   return (
-    <div>
+    <div className={s.container}>
       <SearchBox
         onSearch={handleSearch}
         value={currentQuery}
         onChange={setCurrentQuery}
       />
-      {isNoResults && (
-        <p className={s.msg}>No movie found matching your request</p>
-      )}
+      {isNoResults && <EmptyArr children="movies matching your request" />}
       {isLoading && <Loader />}
-      {isError && (
-        <p className={s.msg}>Something go wrong, please try again!</p>
-      )}
+      {isError && <Error />}
       {movies.length > 0 && <MoviesList movies={movies} />}
       {movies.length > 0 && page < totalPages && (
         <LoadMore onClick={loadMore} />

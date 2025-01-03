@@ -4,6 +4,8 @@ import s from "./MovieReviews.module.css";
 import { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
 import { fetchMoviesDetails } from "../../tmdb-api";
+import EmptyArr from "../EmptyArr/EmptyArr";
+import Error from "../Error/Error";
 
 export default function MovieReviews() {
   const { id } = useParams();
@@ -30,7 +32,7 @@ export default function MovieReviews() {
   return (
     <ul className={s.revList}>
       {isLoading && <Loader />}
-      {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
+      {isError && <Error />}
       {reviews.length > 0 ? (
         reviews.map((review) => (
           <li className={s.item} key={review.id}>
@@ -42,31 +44,8 @@ export default function MovieReviews() {
           </li>
         ))
       ) : (
-        <p className={s.errorMsg}>Sorry, no reviews yet</p>
+        <EmptyArr children="reviews" />
       )}
     </ul>
   );
 }
-
-// export default function MovieReviews() {
-//   const location = useLocation();
-//   const reviews = location.state?.reviews || [];
-
-//   return (
-//     <ul className={s.revList}>
-//       {reviews.length > 0 ? (
-//         reviews.map((review) => (
-//           <li className={s.item} key={review.id}>
-//             <h2 className={s.topic}>
-//               <BiSolidCameraMovie size="25" /> {review.author}
-//             </h2>
-//             <span className={s.dscr}>{review.created_at.split("T")[0]}</span>
-//             <p className={s.text}>{review.content}</p>
-//           </li>
-//         ))
-//       ) : (
-//         <p className={s.errorMsg}>Sorry, no reviews yet</p>
-//       )}
-//     </ul>
-//   );
-// }

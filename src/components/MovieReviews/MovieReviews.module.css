@@ -1,11 +1,6 @@
-.errorMsg {
-  font-style: italic;
-  font-size: 18px;
-  color: rgb(142, 235, 79);
-}
-
 .revList {
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .item {
