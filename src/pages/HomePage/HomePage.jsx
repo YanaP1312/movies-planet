@@ -8,8 +8,8 @@ import s from "./HomePage.module.css";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const cacheRef = useRef({});
@@ -26,12 +26,12 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchMoviesOnHomePage = async () => {
-      setLoading(true);
-      setError(false);
+      setIsLoading(true);
+      setIsError(false);
 
       if (cacheRef.current[page]) {
         setMovies((prevMovies) => [...prevMovies, ...cacheRef.current[page]]);
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
 
@@ -53,9 +53,9 @@ export default function HomePage() {
 
         setTotalPages(data.total_pages);
       } catch (error) {
-        setError(true);
+        setIsError(true);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -70,8 +70,8 @@ export default function HomePage() {
     <div>
       <main className={s.mainSection}>
         <h1 className={s.title}>Trending today</h1>
-        {loading && <Loader />}
-        {error && <p className="errorMsg">Error, try again, please.</p>}
+        {isLoading && <Loader />}
+        {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
         <MoviesList movies={movies} />
         {movies.length > 0 && page < totalPages && (
           <LoadMore onClick={loadMore} />

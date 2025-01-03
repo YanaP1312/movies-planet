@@ -13,9 +13,9 @@ export default function MoviesPage() {
 
   const [currentQuery, setCurrentQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [noResults, setNoResults] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isNoResults, setIsNoResults] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -36,15 +36,15 @@ export default function MoviesPage() {
   }, [query]);
 
   const fetchMoviesOnMoviePage = async (page) => {
-    setError(false);
-    setLoading(true);
-    setNoResults(false);
+    setIsError(false);
+    setIsLoading(true);
+    setIsNoResults(false);
 
     try {
       const data = await fetchSearchMovies(query, page);
       if (data.results.length === 0 && page === 1) {
-        setNoResults(true);
-        setLoading(false);
+        setIsNoResults(true);
+        setIsLoading(false);
         return;
       }
 
@@ -70,9 +70,9 @@ export default function MoviesPage() {
 
       setTotalPages(data.total_pages);
     } catch (error) {
-      setError(true);
+      setIsError(true);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -98,11 +98,13 @@ export default function MoviesPage() {
         value={currentQuery}
         onChange={setCurrentQuery}
       />
-      {noResults && (
+      {isNoResults && (
         <p className={s.msg}>No movie found matching your request</p>
       )}
-      {loading && <Loader />}
-      {error && <p className={s.msg}>Something go wrong, please try again!</p>}
+      {isLoading && <Loader />}
+      {isError && (
+        <p className={s.msg}>Something go wrong, please try again!</p>
+      )}
       {movies.length > 0 && <MoviesList movies={movies} />}
       {movies.length > 0 && page < totalPages && (
         <LoadMore onClick={loadMore} />

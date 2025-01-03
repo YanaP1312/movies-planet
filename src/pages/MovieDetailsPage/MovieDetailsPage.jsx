@@ -8,22 +8,22 @@ import s from "./MovieDetailsPage.module.css";
 export default function MovieDetailsPage() {
   const { id } = useParams();
   const [details, setDetails] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from || "/movies");
 
   useEffect(() => {
     const fetchDetailsOnMoviePage = async () => {
       try {
-        setError(false);
-        setLoading(true);
-        const data = await fetchMoviesDetails(id, "credits,reviews,videos");
+        setIsError(false);
+        setIsLoading(true);
+        const data = await fetchMoviesDetails(id);
         setDetails(data);
       } catch (error) {
-        setError(true);
+        setIsError(true);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -35,8 +35,8 @@ export default function MovieDetailsPage() {
   return (
     <main className={s.main}>
       <BackLink to={backLinkHref.current} />
-      {loading && <Loader />}
-      {error && <p className={s.errorMsg}>Error, try again, please.</p>}
+      {isLoading && <Loader />}
+      {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
       <div className={s.container}>
         <div className={s.img}>
           <img
@@ -92,38 +92,17 @@ export default function MovieDetailsPage() {
         <h2 className={s.topicAdd}>Additional information</h2>
         <ul className={s.moreInfoList}>
           <li>
-            <Link
-              className={s.more}
-              to="cast"
-              state={{
-                from: backLinkHref.current,
-                cast: details.credits?.cast,
-              }}
-            >
+            <Link className={s.more} to="cast">
               Cast
             </Link>
           </li>
           <li>
-            <Link
-              className={s.more}
-              to="reviews"
-              state={{
-                from: backLinkHref.current,
-                reviews: details.reviews?.results,
-              }}
-            >
+            <Link className={s.more} to="reviews">
               Reviews
             </Link>
           </li>
           <li>
-            <Link
-              className={s.more}
-              to="videos"
-              state={{
-                from: backLinkHref.current,
-                videos: details.videos?.results,
-              }}
-            >
+            <Link className={s.more} to="videos">
               Video
             </Link>
           </li>

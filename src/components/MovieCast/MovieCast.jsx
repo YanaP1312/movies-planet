@@ -1,14 +1,38 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import s from "./MovieCast.module.css";
+import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
+import { fetchMoviesDetails } from "../../tmdb-api";
 
 export default function MovieCast() {
-  const location = useLocation();
-  const cast = location.state?.cast || [];
+  const { id } = useParams();
+  const [cast, setCast] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const defaultImg =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/No_picture_available.png/640px-No_picture_available.png";
 
+  useEffect(() => {
+    const fetchCast = async () => {
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        const data = await fetchMoviesDetails(id, "credits");
+        setCast(data.credits.cast);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCast();
+  }, [id]);
+
   return (
     <ul className={s.cast}>
+      {isLoading && <Loader />}
+      {isError && <p className={s.errorMsg}>Error, try again, please.</p>}
       {cast.length > 0 ? (
         cast.map((item) => (
           <li key={item.id} className={s.castItem}>
@@ -28,7 +52,7 @@ export default function MovieCast() {
           </li>
         ))
       ) : (
-        <p className={s.errorMsg}>Sorry, no cast available</p>
+        <p className={s.errorMsg}>Sorry, no video yet</p>
       )}
     </ul>
   );
