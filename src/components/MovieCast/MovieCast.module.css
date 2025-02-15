@@ -4,19 +4,22 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 10px;
 }
 
 .castItem {
-  width: calc(100% - 96) / 5;
+  width: calc(100% - 10) / 2;
 }
 
 .topic {
+  margin-top: 5px;
   color: rgb(142, 235, 79);
-  max-width: 280px;
+  max-width: 150px;
+  font-size: 14px;
 }
 
 .dscr {
   font-style: italic;
-  max-width: 280px;
+  max-width: 150px;
+  font-size: 14px;
 }

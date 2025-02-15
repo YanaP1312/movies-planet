@@ -46,7 +46,7 @@ export default function MovieCast() {
                     : defaultImg
                 }
                 alt={item.name}
-                width={280}
+                width={150}
               />
             </div>
             <h2 className={s.topic}>{item.name}</h2>

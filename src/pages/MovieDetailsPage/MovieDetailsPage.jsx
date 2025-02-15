@@ -70,7 +70,7 @@ export default function MovieDetailsPage() {
             <li className={s.listItem}>
               <h2 className={s.topic}>Genres</h2>
               <p className={s.dscr}>
-                {details.genres?.map((genre) => genre.name).join(" ")}
+                {details.genres?.map((genre) => genre.name).join(", ")}
               </p>
             </li>
             <li className={s.listItem}>
@@ -82,7 +82,7 @@ export default function MovieDetailsPage() {
               <p className={s.dscr}>
                 {details.production_countries
                   ?.map((country) => country.name)
-                  .join(" ")}
+                  .join(", ")}
               </p>
             </li>
           </ul>

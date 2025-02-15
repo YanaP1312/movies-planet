@@ -19,7 +19,11 @@ export default function MovieReviews() {
         setIsError(false);
         setIsLoading(true);
         const data = await fetchMoviesDetails(id, "reviews");
-        setReviews(data.reviews.results);
+
+        const sortedReviews = data.reviews.results.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setReviews(sortedReviews);
       } catch (error) {
         setIsError(true);
       } finally {

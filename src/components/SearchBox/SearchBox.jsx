@@ -1,4 +1,4 @@
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import s from "./SearchBox.module.css";
 
 export default function SearchBox({ onSearch, value, onChange }) {
@@ -6,7 +6,6 @@ export default function SearchBox({ onSearch, value, onChange }) {
     e.preventDefault();
     if (value.trim() === "") {
       toast("Please enter your query", {
-        position: "top-right",
         style: {
           background: "transparent",
           color: "rgb(142, 235, 79)",
@@ -37,7 +36,6 @@ export default function SearchBox({ onSearch, value, onChange }) {
           Search
         </button>
       </form>
-      <Toaster />
     </div>
   );
 }
