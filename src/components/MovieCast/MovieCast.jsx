@@ -11,6 +11,7 @@ export default function MovieCast() {
   const [cast, setCast] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const defaultImg =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/No_picture_available.png/640px-No_picture_available.png";
@@ -31,20 +32,44 @@ export default function MovieCast() {
     fetchCast();
   }, [id]);
 
+  const getImageSrc = (profile_path) =>
+    profile_path
+      ? `https://image.tmdb.org/t/p/w500${profile_path}`
+      : defaultImg;
+
+  useEffect(() => {
+    if (cast.length === 0) return;
+    let loadedCount = 0;
+    cast.forEach((actor) => {
+      const img = new Image();
+      img.src = getImageSrc(actor.profile_path);
+      img.onload = () => {
+        loadedCount += 1;
+        if (loadedCount === cast.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount += 1;
+        if (loadedCount === cast.length) {
+          setImagesLoaded(true);
+        }
+      };
+    });
+  }, [cast]);
+
   return (
     <ul className={s.cast}>
       {isLoading && <Loader />}
       {isError && <Error />}
-      {cast.length > 0 ? (
+      {cast.length < 0 && <EmptyArr children="cast info" />}
+      {cast.length > 0 &&
+        imagesLoaded &&
         cast.map((item) => (
           <li key={item.id} className={s.castItem}>
             <div>
               <img
-                src={
-                  item.profile_path
-                    ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                    : defaultImg
-                }
+                src={getImageSrc(item.profile_path)}
                 alt={item.name}
                 width={150}
               />
@@ -52,10 +77,7 @@ export default function MovieCast() {
             <h2 className={s.topic}>{item.name}</h2>
             <p className={s.dscr}>{item.character}</p>
           </li>
-        ))
-      ) : (
-        <EmptyArr children="cast info" />
-      )}
+        ))}
     </ul>
   );
 }
