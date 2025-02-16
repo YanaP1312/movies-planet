@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import s from "./MoviesList.module.css";
 import { HiOutlineStar } from "react-icons/hi2";
-import Loader from "../Loader/Loader.jsx";
 
 export default function MoviesList({ movies }) {
   const location = useLocation();
@@ -36,7 +35,7 @@ export default function MoviesList({ movies }) {
   return (
     <div>
       {!imagesLoaded ? (
-        <Loader />
+        <div></div>
       ) : (
         <ul className={s.moviesList}>
           {movies.map((movie) => (
