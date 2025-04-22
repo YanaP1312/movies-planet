@@ -9,6 +9,7 @@ import Error from "../../components/Error/Error";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
+  const [latestBatch, setLatestBatch] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -33,6 +34,7 @@ export default function HomePage() {
 
       if (cacheRef.current[page]) {
         setMovies((prevMovies) => [...prevMovies, ...cacheRef.current[page]]);
+        setLatestBatch(cacheRef.current[page]);
         setIsLoading(false);
         return;
       }
@@ -52,7 +54,7 @@ export default function HomePage() {
           sessionStorage.setItem("trendingPage", page.toString());
           return unique;
         });
-
+        setLatestBatch(data.results);
         setTotalPages(data.total_pages);
       } catch (error) {
         setIsError(true);
@@ -65,10 +67,8 @@ export default function HomePage() {
   }, [page]);
 
   useEffect(() => {
-    if (page > 1) {
-      setImagesLoaded(false);
-    }
-  }, [page]);
+    setImagesLoaded(false);
+  }, [latestBatch]);
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -82,6 +82,7 @@ export default function HomePage() {
         {isError && <Error />}
         <MoviesList
           movies={movies}
+          latestBatch={latestBatch}
           onAllImagesLoaded={() => setImagesLoaded(true)}
         />
         {movies.length > 0 && page < totalPages && imagesLoaded && (

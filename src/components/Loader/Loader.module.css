@@ -1,5 +1,6 @@
 .loader {
-  padding: 15px;
+  padding-top: 200px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }

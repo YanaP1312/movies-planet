@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import s from "./MoviesList.module.css";
 import { HiOutlineStar } from "react-icons/hi2";
 
-export default function MoviesList({ movies, onAllImagesLoaded }) {
+export default function MoviesList({
+  movies,
+  latestBatch = [],
+  onAllImagesLoaded = () => {},
+}) {
   const location = useLocation();
   const defaultImg = "https://ranobehub.org/img/ranobe/posters/default.jpg";
 
@@ -11,17 +15,17 @@ export default function MoviesList({ movies, onAllImagesLoaded }) {
     posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg;
 
   useEffect(() => {
-    if (movies.length === 0) return;
+    if (latestBatch.length === 0) return;
 
     let loadedCount = 0;
 
-    movies.forEach((movie) => {
+    latestBatch.forEach((movie) => {
       const img = new Image();
       img.src = getImageSrc(movie.poster_path);
 
       const onLoadOrError = () => {
         loadedCount++;
-        if (loadedCount === movies.length) {
+        if (loadedCount === latestBatch.length) {
           onAllImagesLoaded();
         }
       };

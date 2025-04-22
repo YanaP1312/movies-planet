@@ -7,10 +7,7 @@ export default function SearchBox({ onSearch, value, onChange }) {
     if (value.trim() === "") {
       toast("Please enter your query", {
         style: {
-          background: "transparent",
-          color: "rgb(142, 235, 79)",
-          fontStyle: "italic",
-          boxShadow: "none",
+          color: "rgb(60, 138, 7)",
         },
         icon: "⚡",
       });
