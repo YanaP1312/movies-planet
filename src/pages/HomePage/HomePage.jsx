@@ -13,7 +13,10 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const cacheRef = useRef({});
+
+  const handleImagesLoaded = (loaded) => setImagesLoaded(loaded);
 
   useEffect(() => {
     const savedMovies = sessionStorage.getItem("trendingMovies");
@@ -29,6 +32,7 @@ export default function HomePage() {
     const fetchMoviesOnHomePage = async () => {
       setIsLoading(true);
       setIsError(false);
+      setImagesLoaded(false);
 
       if (cacheRef.current[page]) {
         setMovies((prevMovies) => [...prevMovies, ...cacheRef.current[page]]);
@@ -73,8 +77,8 @@ export default function HomePage() {
         <h1 className={s.title}>Trending today</h1>
         {isLoading && <Loader />}
         {isError && <Error />}
-        <MoviesList movies={movies} />
-        {movies.length > 0 && page < totalPages && (
+        <MoviesList movies={movies} onImagesLoaded={handleImagesLoaded} />
+        {imagesLoaded && movies.length > 0 && page < totalPages && (
           <LoadMore onClick={loadMore} />
         )}
       </main>
