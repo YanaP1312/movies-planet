@@ -1,36 +1,35 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import s from "./MoviesList.module.css";
 import { HiOutlineStar } from "react-icons/hi2";
 
-export default function MoviesList({ movies, onImagesLoaded }) {
+export default function MoviesList({ movies, onAllImagesLoaded }) {
   const location = useLocation();
   const defaultImg = "https://ranobehub.org/img/ranobe/posters/default.jpg";
-  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const getImageSrc = (posterPath) =>
     posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg;
 
   useEffect(() => {
     if (movies.length === 0) return;
+
     let loadedCount = 0;
+
     movies.forEach((movie) => {
       const img = new Image();
       img.src = getImageSrc(movie.poster_path);
-      img.onload = () => {
-        loadedCount += 1;
+
+      const onLoadOrError = () => {
+        loadedCount++;
         if (loadedCount === movies.length) {
-          setImagesLoaded(true);
+          onAllImagesLoaded();
         }
       };
-      img.onerror = () => {
-        loadedCount += 1;
-        if (loadedCount === movies.length) {
-          setImagesLoaded(true);
-        }
-      };
+
+      img.onload = onLoadOrError;
+      img.onerror = onLoadOrError;
     });
-  }, [movies, onImagesLoaded]);
+  }, [movies, onAllImagesLoaded]);
 
   return (
     <ul className={s.moviesList}>
